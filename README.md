@@ -19,3 +19,4 @@ Please read the tutorial at  https://www.baeldung.com/spring-boot-crud-thymeleaf
 
 And please elaborate your understanding in MVC architecture via this homework in your README.md.
 
+在前端调用发送请求给controller,controller调用注入的service操作model，最后再把新的视图view呈现出来。

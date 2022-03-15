@@ -113,8 +113,8 @@
 		</div>
 		<figcaption class="info-wrap">
 			<a href="#" class="title"><span th:text="${product.name}"></span></a>
-			<div class="action-wrap">
-				<a href="#" class="btn btn-primary btn-sm float-right"> <i class="fa fa-cart-plus"></i> Add </a>
+			<div class="action-wrap" >
+				<a href="#" class="btn btn-primary btn-sm float-right" ><span th:onclick="add([[${product.id}]])"> <i class="fa fa-cart-plus"></i> Add  </span></a>
 				<div class="price-wrap h5">
 					<span class="price-new">$1280</span>
 				</div> <!-- price-wrap.// -->
@@ -153,16 +153,23 @@
 	<td class="text-center"> 
 		<div class="m-btn-group m-btn-group--pill btn-group mr-2" role="group" aria-label="...">
 																		<button type="button"
-                                                                                class="m-btn btn btn-default"><i
-                                                                                class="fa fa-minus"></i></button>
+                                                                                class="m-btn btn btn-default"  th:onclick="minus([[${item.product.id}]])"><i
+                                                                                class="fa fa-minus"></i>
+                                                                        </button>
+
 																		<button type="button"
                                                                                 class="m-btn btn btn-default"
-                                                                                disabled><span th:text="${item.quantity}"></span></button>
+                                                                                disabled ><span th:text="${item.quantity}" ></span></button>
 																		<button type="button"
                                                                                 class="m-btn btn btn-default"><i
-                                                                                class="fa fa-plus"></i></button>
+                                                                                class="fa fa-plus"
+                                                                                th:onclick="add([[${item.product.id}]])"></i></button>
+
+
+
 																	</div>
 	</td>
+
 	<td> 
 		<div class="price-wrap"> 
 			<var class="price"><span th:text="${item.product.price}"></span></var>
@@ -225,7 +232,52 @@
         });
         $("#cart").height(445);
         $("#cart").overlayScrollbars({});
+
     });
+
+   function minus(id){
+
+        $.ajax({
+            url:"/change",
+            type: "post",
+
+            data: {
+                "id": id,
+                "num": -1,
+            },
+
+            success: function (returnValue) {
+                alert("success")
+                location.reload()
+            },
+            error: function (returnValue) {
+                location.reload()
+            }
+        })
+    }
+
+    function add(id){
+
+        $.ajax({
+            url:"/change",
+            type: "post",
+
+            data: {
+                "id": id,
+                "num": 1,
+            },
+
+            success: function (returnValue) {
+                alert("success")
+                location.reload()
+            },
+            error: function (returnValue) {
+                location.reload()
+            }
+        })
+    }
+
+
 </script>
 </body>
 </html>
